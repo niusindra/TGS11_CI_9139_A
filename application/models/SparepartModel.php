@@ -1,16 +1,28 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed'); 
-class UserModel extends CI_Model 
+class SparepartModel extends CI_Model 
 { 
-    private $table = 'users'; 
-    public $id; public $name; 
-    public $email; 
-    public $password; 
+    private $table = 'spareparts'; 
+    public $id; 
+    public $name; 
+    public $merk; 
+    public $amount; 
+    public $created_at;
     public $rule = [ 
         [ 
             'field' => 'name', 
             'label' => 'name', 
             'rules' => 'required' 
+        ], 
+        [ 
+            'field' => 'merk', 
+            'label' => 'merk', 
+            'rules' => 'required' 
+        ], 
+        [ 
+            'field' => 'amount', 
+            'label' => 'amount', 
+            'rules' => 'required|numeric' 
         ], 
     ]; 
     public function Rules() { return $this->rule; } 
@@ -21,15 +33,16 @@ class UserModel extends CI_Model
     
     public function store($request) { 
         $this->name = $request->name; 
-        $this->email = $request->email; 
-        $this->password = password_hash($request->password, PASSWORD_BCRYPT); 
+        $this->merk = $request->merk; 
+        $this->amount = $request->amount; 
+        $this->created_at = $request->created_at;
         if($this->db->insert($this->table, $this)){ 
             return ['msg'=>'Berhasil','error'=>false];
         } 
         return ['msg'=>'Gagal','error'=>true]; 
     } 
     public function update($request,$id) { 
-        $updateData = ['email' => $request->email, 'name' =>$request->name]; 
+        $updateData = ['amount' => $request->amount, 'name' =>$request->name, 'merk' =>$request->merk, 'created_at' =>$request->created_at]; 
         if($this->db->where('id',$id)->update($this->table, $updateData)){ 
             return ['msg'=>'Berhasil','error'=>false]; 
         } 
