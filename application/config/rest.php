@@ -138,6 +138,7 @@ $config['auth_source'] = 'ldap';
 |
 */
 $config['allow_auth_and_keys'] = TRUE;
+$config['strict_api_and_auth'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -556,6 +557,7 @@ $config['check_cors'] = TRUE;
 |
 */
 $config['allowed_cors_headers'] = [
+  'Authorization',
   'Origin',
   'X-Requested-With',
   'Content-Type',
